@@ -1,0 +1,31 @@
+{
+  "name": "reactstrap-table",
+  "version": "1.0.0",
+  "description": "React table used for sorting, searching, and filtering",
+  "main": "index.tsx",
+  "repository": "https://github.com/imcva/reactstrap-table",
+  "author": "Brandon Might <brandon.might@imcva.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "peerDependencies": {
+    "bootstrap": "^4.4.1",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "reactstrap": "^8.4.1"
+  },
+  "dependencies": {
+    "react-table": "^7.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@types/react": "^16.9.23",
+    "@types/react-dom": "^16.9.5",
+    "rollup": "^2.0.5",
+    "rollup-plugin-postcss": "^2.4.1",
+    "rollup-plugin-typescript2": "^0.26.0",
+    "typescript": "^3.8.3"
+  }
+}
