@@ -14,7 +14,8 @@
     "moduleResolution": "node",
     "rootDirs": [
       "src",
-      "stories"
+      "stories",
+      "tests"
     ],
     "baseUrl": "src",
     "forceConsistentCasingInFileNames": true,
@@ -27,7 +28,8 @@
     "declaration": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*"

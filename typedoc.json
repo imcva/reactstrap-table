@@ -1,0 +1,15 @@
+{
+  "inputFiles": ["./src"],
+  "mode": "modules",
+  "out": "docs",
+  "name": "Reactstrap Table",
+  "includeVersion": true,
+  "theme": "./node_modules/typedoc-neo-theme/bin/default",
+  "outline": [{
+      "Table": {
+        "Table": "_table_",
+        "Header": "_header_",
+        "Body": "_body_"
+      }
+    }]
+}

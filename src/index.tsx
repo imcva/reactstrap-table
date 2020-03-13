@@ -1,9 +1,3 @@
-import React from 'react'
+import Table from './Table'
 
-const Table: React.FC = () => {
-  return (
-    <div>Placeholder for project setup</div>
-  )
-}
-
-export default Table
+export { Table }
