@@ -1,12 +1,6 @@
 import React from 'react'
-import { Row, Cell, TableBodyProps } from 'react-table'
-
-interface BodyProps {
-  /** Header Group used to create the header TRs */
-  rows: Array<Row>
-  tableBodyProps: TableBodyProps
-  prepareRow: (row: Row) => void;
-}
+import { Row, Cell } from 'react-table'
+import useTableContext from './useTableContext'
 
 interface TrProps {
   row: Row
@@ -34,11 +28,13 @@ const Tr: React.FC<TrProps> = (props) => {
   )
 }
 
-const Body: React.FC<BodyProps> = (props) => {
+const Body: React.FC = () => {
+  const { getTableBodyProps, rows, prepareRow } = useTableContext()
+
   return (
-    <tbody data-testid={props['data-testid'] || 'table-tbody'} {...props.tableBodyProps}>
-      {props.rows.map((row, index) => {
-        props.prepareRow(row)
+    <tbody data-testid='table-tbody' {...getTableBodyProps()}>
+      {rows.map((row, index) => {
+        prepareRow(row)
         return (
           <Tr row={row} key={index} />
         )

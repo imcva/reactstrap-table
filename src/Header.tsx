@@ -1,10 +1,6 @@
 import React from 'react'
 import { HeaderGroup, ColumnInstance } from 'react-table'
-
-interface HeaderProps {
-  /** Header Group used to create the header TRs */
-  headerGroups: Array<HeaderGroup>
-}
+import useTableContext from './useTableContext'
 
 interface TrProps {
   headerGroup: HeaderGroup
@@ -32,10 +28,12 @@ const Tr: React.FC<TrProps> = (props) => {
   )
 }
 
-const Header: React.FC<HeaderProps> = (props) => {
+const Header: React.FC = (props) => {
+  const { headerGroups } = useTableContext()
+
   return (
-    <thead data-testid={props['data-testid'] || 'table-thead'}>
-      {props.headerGroups.map((headerGroup, index) => (
+    <thead data-testid={'table-thead'}>
+      {headerGroups.map((headerGroup, index) => (
         <Tr headerGroup={headerGroup} key={index} />
       ))}
     </thead>
