@@ -1,8 +1,8 @@
 import React from 'react'
-import {render } from '@testing-library/react'
-import { useTable } from 'react-table'
+import { render } from '@testing-library/react'
 
 import Header from '../src/Header'
+import { TableContext } from '../src'
 
 test('Table Header has rendered with proper columns', () => {
   const columns = [
@@ -16,16 +16,12 @@ test('Table Header has rendered with proper columns', () => {
   ]
 
   const Component = () => {
-    const {
-      headerGroups
-    } = useTable({
-      columns,
-      data
-    })
     return (
-      <table>
-        <Header headerGroups={headerGroups} />
-      </table>
+      <TableContext columns={columns} data={data}>
+        <table>
+          <Header />
+        </table>
+      </TableContext>
     )
   }
 

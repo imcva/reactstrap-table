@@ -10,6 +10,11 @@
         "Table": "_table_",
         "Header": "_header_",
         "Body": "_body_"
+      },
+      "Table Context": {
+        "TableContext": "_TableContext_",
+        "useTableContext": "_useTableContext_",
+        "Context": "_tablecontext_.html#context"
       }
     }]
 }
