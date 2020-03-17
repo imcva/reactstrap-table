@@ -32,7 +32,9 @@
     "esModuleInterop": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "stories/**/*",
+    "tests/**/*"
   ],
   "exclude": [
     "node_modules",

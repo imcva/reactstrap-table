@@ -1,15 +1,12 @@
 import React from 'react'
-import { Column } from 'react-table'
 import { Table as StrapTable } from 'reactstrap'
 import Header from './Header'
 import Body from './Body'
 import useTableContext from './useTableContext'
-import TableContext, { Context } from './TableContext'
+import TableContext, { Context, TableProps } from './TableContext'
 
-interface TableProps extends Partial<BaseTableProps> {
-  columns?: Array<Column>
-  data?: Array<object>
-}
+type OptionalTableProps = Partial<TableProps>
+
 interface BaseTableProps {
   "data-testid"?: string
 }
@@ -38,16 +35,16 @@ const BaseTable: React.FC<BaseTableProps> = (props) => {
  * 
  * @example [Basic Example](../storybook/index.html?path=/story/reactstrap-table--basic)
  */
-const Table: React.FC<TableProps> = (props) => { 
+const Table: React.FC<OptionalTableProps> = (props) => { 
   const tableState = React.useContext(Context)
 
-  if (tableState === null && (!props.columns || !props.data)) {
-    throw new Error('If Table is not wrapped in a TableContext you must pass column and data props.')
+  if (tableState === null && (!props.options)) {
+    throw new Error('If Table is not wrapped in a TableContext you must pass options props.')
   }
 
-  if (tableState === null && props.columns && props.data) {
+  if (tableState === null && props.options) {
     return (
-      <TableContext columns={props.columns} data={props.data}>
+      <TableContext options={props.options} plugins={props.plugins}>
         <BaseTable />  
       </TableContext>
     )
@@ -58,4 +55,3 @@ const Table: React.FC<TableProps> = (props) => {
  }
 
 export default Table
-export { TableProps }

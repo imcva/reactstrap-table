@@ -24,7 +24,7 @@ export const Basic = () => {
     <Container fluid>
       <Row>
         <Col>
-          <Table columns={columns} data={data} />
+          <Table options={{columns, data}} />
         </Col>
       </Row>
     </Container>

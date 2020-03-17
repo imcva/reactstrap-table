@@ -41,20 +41,21 @@
     "@types/jest": "^25.1.4",
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
-    "@types/react-table": "^7.0.10",
+    "@types/react-table": "7.0.12",
     "@types/reactstrap": "^8.4.2",
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.6",
     "bootstrap": "^4.4.1",
     "jest": "^25.1.0",
     "reactstrap": "^8.4.1",
+    "regenerator-runtime": "^0.13.5",
     "rollup": "^2.0.5",
     "rollup-plugin-postcss": "^2.4.1",
     "rollup-plugin-typescript2": "^0.26.0",
     "ts-jest": "^25.2.1",
     "ts-loader": "^6.2.1",
     "typedoc": "^0.16.11",
-    "typedoc-neo-theme": "^1.0.6",
+    "typedoc-neo-theme": "1.0.7",
     "typescript": "^3.8.3"
   }
 }

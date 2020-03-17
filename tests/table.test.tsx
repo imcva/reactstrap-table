@@ -35,7 +35,7 @@ afterEach(() => {
 })
 
 test('Table without Context', () => {
-  const { queryByTestId } = render(<Table columns={columns} data={data} />)
+  const { queryByTestId } = render(<Table options={{ columns, data }} />)
   expect(queryByTestId('table')).toBeInTheDocument()
 });
 
@@ -49,7 +49,7 @@ test('Table without Context or Table props', () => {
 test('Table With Context', () => {
   const Component = () => {
     return (
-      <TableContext columns={columns} data={data}>
+      <TableContext options={{ columns, data }}>
         <Table />
       </TableContext>
     ) 
@@ -74,7 +74,7 @@ test('Use context without provider should throw', () => {
   const Component = () => {
     return (
       <>
-        <Table columns={columns} data={data} />
+        <Table options={{ columns, data }} />
         <InnerComponent />
       </>
     ) 

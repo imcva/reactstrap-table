@@ -1,5 +1,6 @@
 import React from 'react';
-import { Table, TableContext, useTableContext } from '../src';
+import { useGlobalFilter } from 'react-table'
+import { Table, TableContext, GlobalSearch, globalSearchFilter } from '../src';
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container, Row, Col } from 'reactstrap';
@@ -9,20 +10,7 @@ export default {
   component: Table
 }
 
-const DisplayColumnJson = () => {
-  const { columns } = useTableContext()
-  return (
-    <Row>
-      <Col className='bg-light col-11 mx-auto'>
-        <pre>
-          {JSON.stringify(columns, null, 2)}
-        </pre>
-      </Col>
-    </Row>
-  )
-}
-
-export const WithContext = () => {
+export const GlobalSearchExample = () => {
   const columns = [
     { Header: 'First Name', accessor: 'firstname'},
     { Header: 'Last Name', accessor: 'lastname'}
@@ -37,9 +25,11 @@ export const WithContext = () => {
     <Container fluid>
       <Row>
         <Col>
-          <TableContext options={{ columns, data }}>
+          <TableContext options={{ columns, data, globalFilter: globalSearchFilter }} plugins={[useGlobalFilter]}>
+            <GlobalSearch className='my-3' />
+            <GlobalSearch className='my-3' placeholder='Search...' />
+            <GlobalSearch className='my-3' placeholder={(count) => `${count} people...`} />
             <Table />
-            <DisplayColumnJson />
           </TableContext>
         </Col>
       </Row>
@@ -47,6 +37,6 @@ export const WithContext = () => {
   )
 }
 
-WithContext.story = {
-  name: 'Table Context',
+GlobalSearchExample.story = {
+  name: 'GlobalSearch',
 };
