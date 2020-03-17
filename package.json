@@ -20,6 +20,9 @@
     "reactstrap": "^8.4.1"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.27",
+    "@fortawesome/free-solid-svg-icons": "^5.12.1",
+    "@fortawesome/react-fontawesome": "^0.1.9",
     "react-table": "^7.0.0"
   },
   "devDependencies": {
