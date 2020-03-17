@@ -10,7 +10,7 @@ export default {
   component: Table
 }
 
-export const BaseTable = () => {
+export const GlobalSearchExample = () => {
   const columns = [
     { Header: 'First Name', accessor: 'firstname'},
     { Header: 'Last Name', accessor: 'lastname'}
@@ -37,6 +37,6 @@ export const BaseTable = () => {
   )
 }
 
-BaseTable.story = {
+GlobalSearchExample.story = {
   name: 'GlobalSearch',
 };

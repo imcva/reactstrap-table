@@ -55,4 +55,3 @@ const Table: React.FC<OptionalTableProps> = (props) => {
  }
 
 export default Table
-export { TableProps }

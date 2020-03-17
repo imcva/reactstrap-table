@@ -1,5 +1,9 @@
 {
   "inputFiles": ["./src"],
+  "exclude": [
+    "stories/**/*",
+    "tests/**/*"
+  ],
   "mode": "modules",
   "out": "docs",
   "name": "Reactstrap Table",
@@ -15,6 +19,10 @@
         "TableContext": "_TableContext_",
         "useTableContext": "_useTableContext_",
         "Context": "_tablecontext_.html#context"
+      },
+      "Global Search": {
+        "GlobalSearch": "_GlobalSearch_.html#globalsearch",
+        "globalSearchFilter": "_GlobalSearch_.html#globalsearchfilter"
       }
     }]
 }
