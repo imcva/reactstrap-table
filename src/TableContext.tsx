@@ -1,15 +1,15 @@
 import React from 'react'
-import { useTable, Column, TableInstance } from 'react-table'
+import { useTable, TableInstance, TableOptions, PluginHook } from 'react-table'
 
 interface TableProps {
-  columns: Array<Column>
-  data: Array<object>
+  options: TableOptions<{}>,
+  plugins?: PluginHook<{}>[]
   "data-testid"?: string
 }
 
-type TableState = TableInstance | null
+type TableState = TableInstance
 
-const Context = React.createContext<TableState>(null)
+const Context = React.createContext<TableState | null>(null)
 
 /**
  * Context wrapper around the [[Table]] component. See [[useTableContext]] to
@@ -18,18 +18,19 @@ const Context = React.createContext<TableState>(null)
  * @example [Table Context Example](../storybook/index.html?path=/story/reactstrap-table--with-context)
  */
 const TableContext: React.FC<TableProps> = (props) => {
-  const state = useTable({
-    columns: props.columns,
-    data: props.data
-  })
+  const plugins = props.plugins || []
 
+  const state = useTable(
+    props.options,
+    ...plugins
+  )
 
   return (
-    <Context.Provider value={state}>
+    <Context.Provider value={{ ...state }}>
       {props.children}
     </Context.Provider>
   )
 }
 
 export default TableContext
-export { Context, TableState }
+export { Context, TableState, TableProps }

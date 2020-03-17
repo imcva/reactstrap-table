@@ -17,7 +17,7 @@ test('Table Header has rendered with proper columns', () => {
 
   const Component = () => {
     return (
-      <TableContext columns={columns} data={data}>
+      <TableContext options={{ columns, data }}>
         <table>
           <Header />
         </table>

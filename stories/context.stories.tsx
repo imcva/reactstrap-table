@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Table, TableContext, useTableContext } from '../src';
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -37,7 +37,7 @@ export const WithContext = () => {
     <Container fluid>
       <Row>
         <Col>
-          <TableContext columns={columns} data={data}>
+          <TableContext options={{ columns, data }}>
             <Table />
             <DisplayColumnJson />
           </TableContext>

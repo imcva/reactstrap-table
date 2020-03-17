@@ -1,9 +1,10 @@
 import React from 'react'
 
-import { Context } from './TableContext'
 import { TableInstance } from 'react-table'
 
-const useTableContext = () => {
+import { Context } from './TableContext'
+
+const useTableContext = (): TableInstance => {
   const state = React.useContext(Context) 
   if (state === null) {
     throw new Error('Table state not setup. Please use within TableContext!')
