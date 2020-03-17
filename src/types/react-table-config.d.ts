@@ -98,7 +98,9 @@ declare module 'react-table' {
     extends UseFiltersColumnOptions<D>,
       UseGroupByColumnOptions<D>,
       UseResizeColumnsColumnOptions<D>,
-      UseSortByColumnOptions<D> {}
+      UseSortByColumnOptions<D> {
+        search?: (row: object) => string
+      }
 
   export interface ColumnInstance<D extends object = {}>
     extends UseFiltersColumnProps<D>,
