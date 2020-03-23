@@ -1,8 +1,12 @@
 {
   "name": "reactstrap-table",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "React table used for sorting, searching, and filtering",
-  "main": "index.tsx",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "files": [
+    "dist"
+  ],
   "repository": "https://github.com/imcva/reactstrap-table",
   "author": "Brandon Might <brandon.might@imcva.com>",
   "license": "MIT",
