@@ -5,6 +5,8 @@ import postcss from 'rollup-plugin-postcss'
 import typescript from 'rollup-plugin-typescript2'
 import pkg from './package.json'
 
+import reactTable from 'react-table'
+
 export default {
   input: 'src/index.tsx',
   output: [
@@ -23,7 +25,12 @@ export default {
       extensions: ['.js', '.jsx', '.ts', '.tsx']
     }),
     typescript({ module: 'CommonJS' }),
-    commonjs({extensions: ['.js', '.ts']}),
+    commonjs({
+      extensions: ['.js', '.ts'],
+      namedExports: {
+        'react-table': Object.keys(reactTable)
+      }
+    }),
     postcss({
       extract: `dist/${pkg.name}.css`
     })
