@@ -21,7 +21,11 @@ interface ColumnControlProps {
  * @param props 
  */
 const ColumnControl: React.FC<ColumnControlProps> = (props) => {
-  const { allColumns } = useTableContext()
+  const { allColumns, setHiddenColumns, initialState } = useTableContext()
+
+  const reset = () => {
+    setHiddenColumns(initialState.hiddenColumns || [])
+  }
 
   return (
     <Modal data-testid='column-control' isOpen={props.open}>
@@ -30,7 +34,7 @@ const ColumnControl: React.FC<ColumnControlProps> = (props) => {
           <ColumnList columns={allColumns} />
       </ModalBody>
       <ModalFooter>
-        <Button color='danger'>Reset Columns</Button>
+        <Button color='danger' data-testid='reset-columns' onClick={reset}>Reset Columns</Button>
       </ModalFooter>
     </Modal>
   )

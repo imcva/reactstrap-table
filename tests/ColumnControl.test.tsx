@@ -76,3 +76,61 @@ test('Visiblity Toggle', async () => {
     expect(tds.length).toBe(2)
   })
 });
+
+test('Reset Column Visiblity Without initialState', async () => {
+  const Component = () => {
+    return (
+      <TableContext options={{ columns, data }}>
+        <ColumnControl open={true} toggle={() => null} />
+        <Table />
+      </TableContext>
+    )
+  }
+
+  const { getAllByTestId, getByTestId } = render(<Component />)
+  const visiblityControls = getAllByTestId('column-visibility-icon-visible')
+  fireEvent.click(visiblityControls[0])
+  await waitFor(() => {
+    const visiblityControlsHidden = getAllByTestId('column-visibility-icon-hidden')
+    expect(visiblityControlsHidden.length).toBe(1)
+  })
+  fireEvent.click(getByTestId('reset-columns'))
+  await waitFor(() => {
+    const visiblityControls = getAllByTestId('column-visibility-icon-visible')
+    expect(visiblityControls.length).toBe(2)
+    const ths = getAllByTestId('table-thead-tr-th')
+    const tds = getAllByTestId('table-tbody-tr-td')
+    expect(ths.length).toBe(2)
+    expect(tds.length).toBe(4)
+  })
+});
+
+test('Reset Column Visiblity with initialState', async () => {
+  const Component = () => {
+    return (
+      <TableContext options={{ columns, data, initialState: { hiddenColumns: ['firstname'] }}}>
+        <ColumnControl open={true} toggle={() => null} />
+        <Table />
+      </TableContext>
+    )
+  }
+
+  const { getAllByTestId, getByTestId } = render(<Component />)
+  const visiblityControls = getAllByTestId('column-visibility-icon-hidden')
+  fireEvent.click(visiblityControls[0])
+  await waitFor(() => {
+    const visiblityControlsHidden = getAllByTestId('column-visibility-icon-visible')
+    expect(visiblityControlsHidden.length).toBe(2)
+  })
+  fireEvent.click(getByTestId('reset-columns'))
+  await waitFor(() => {
+    const visiblityControls = getAllByTestId('column-visibility-icon-visible')
+    const visiblityControlsHidden = getAllByTestId('column-visibility-icon-hidden')
+    expect(visiblityControls.length).toBe(1)
+    expect(visiblityControlsHidden.length).toBe(1)
+    const ths = getAllByTestId('table-thead-tr-th')
+    const tds = getAllByTestId('table-tbody-tr-td')
+    expect(ths.length).toBe(1)
+    expect(tds.length).toBe(2)
+  })
+});
