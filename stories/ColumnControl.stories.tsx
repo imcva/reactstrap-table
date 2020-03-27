@@ -3,6 +3,7 @@ import { Table, TableContext, ColumnControl, useTableContext } from '../src';
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container, Row, Col, Button } from 'reactstrap';
+import { useColumnOrder } from 'react-table';
 
 export default {
   title: 'reactstrap-table',
@@ -10,10 +11,10 @@ export default {
 }
 
 const State = () => {
-  const { state } = useTableContext()
+  const table = useTableContext()
   return (
     <pre>
-      {JSON.stringify(state, null, 2)}
+      {JSON.stringify(table.state, null, 2)}
     </pre>
   )
 }
@@ -34,7 +35,7 @@ export const ColumnControlExample = () => {
     <Container fluid>
       <Row>
         <Col>
-          <TableContext options={{ columns, data }}>
+          <TableContext options={{ columns, data }} plugins={[useColumnOrder]}>
             <Button onClick={() => setOpen(s => !s)}>Open Settings</Button>
             <ColumnControl open={open} toggle={() => setOpen(o => !o)}/>
             <Table />

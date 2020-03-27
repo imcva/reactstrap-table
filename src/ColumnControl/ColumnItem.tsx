@@ -2,6 +2,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { ColumnInstance } from 'react-table'
+import { Draggable, DraggableProvided } from 'react-beautiful-dnd'
 
 interface IconProps {
   active: boolean,
@@ -30,8 +31,46 @@ const Icons: React.FC<IconProps> = (props) => {
   }
 }
 
+interface ItemProps {
+  column: ColumnInstance
+  provided?: DraggableProvided
+}
+
+/**
+ * Table Column item in a list group. An Icon is displayed next to the column
+ * header that toggles the visiblity of the column.
+ * 
+ * @private
+ * 
+ * @param props 
+ */
+const Item: React.FC<ItemProps> = (props) => {
+  const active = props.column.isVisible
+  const { provided } = props
+  let itemProps = {}
+  if (provided) {
+    itemProps = {
+      ...itemProps,
+      ...provided.draggableProps,
+      ...provided.dragHandleProps,
+      ref: provided.innerRef
+    }
+  }
+  return (
+    <li 
+      data-testid='column-control-item'
+      className={`list-group-item ${!active ? 'bg-light' : ''}`}
+      {...itemProps}
+    >
+      <Icons active={active} toggle={() => props.column.toggleHidden()} />
+      {props.column.Header}
+    </li>
+  )
+}
 interface ColumnItemProps {
   column: ColumnInstance
+  index: number
+  draggable?: boolean
 }
 
 /**
@@ -43,12 +82,21 @@ interface ColumnItemProps {
  * @param props 
  */
 const ColumnItem: React.FC<ColumnItemProps> = (props) => {
-  const active = props.column.isVisible
+  const { column, index, draggable } = props
   return (
-    <li className={`list-group-item ${!active ? 'bg-light' : ''}`} >
-      <Icons active={active} toggle={() => props.column.toggleHidden()} />
-      {props.column.Header}
-    </li>
+    <>
+      { draggable
+        ? (
+          <Draggable key={column.id} draggableId={column.id} index={index}>
+            {provided => (
+              <Item column={column} provided={provided} />
+            )}
+          </Draggable>
+        ) : (
+          <Item column={column} />
+        )
+      }
+    </>
   )
 }
 

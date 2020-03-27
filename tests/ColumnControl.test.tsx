@@ -3,11 +3,11 @@ import { Button } from 'reactstrap'
 
 // @ts-ignore
 import 'regenerator-runtime/runtime'
-
 // @ts-ignore
-import { render, fireEvent, waitFor } from '@testing-library/react'
+import { render, fireEvent, waitFor, getByTestId, getAllByTestId } from '@testing-library/react'
 
 import { Table, TableContext, ColumnControl } from '../src';
+import { useColumnOrder } from 'react-table'
 
 const columns = [
   { Header: 'First Name', accessor: 'firstname' },
@@ -132,5 +132,94 @@ test('Reset Column Visiblity with initialState', async () => {
     const tds = getAllByTestId('table-tbody-tr-td')
     expect(ths.length).toBe(1)
     expect(tds.length).toBe(2)
+  })
+});
+
+test('Rearrange Columns without initialState', async () => {
+  const Component = () => {
+    return (
+      <TableContext options={{ columns, data }} plugins={[useColumnOrder]}>
+        <ColumnControl open={true} toggle={() => null} />
+        <Table />
+      </TableContext>
+    )
+  }
+
+  const { getAllByTestId } = render(<Component />)
+
+  // Verify starting order
+  const ths = getAllByTestId('table-thead-tr-th')
+  expect(ths[0].textContent).toBe('First Name')
+  expect(ths[1].textContent).toBe('Last Name')
+
+  // Drag first name
+  const firstNameControl = getAllByTestId('column-control-item')[0]
+  fireEvent.keyDown(firstNameControl, { keyCode: 32 });
+  fireEvent.keyDown(firstNameControl, { keyCode: 40 });
+  fireEvent.keyDown(firstNameControl, { keyCode: 32 });
+
+  await waitFor(() => {
+    // Verify order after sort
+    const ths_post_drag = getAllByTestId('table-thead-tr-th')
+    expect(ths_post_drag[0].textContent).toBe('Last Name')
+    expect(ths_post_drag[1].textContent).toBe('First Name')
+  })
+});
+
+test('Reset after rearrange columns without initialState', async () => {
+  const Component = () => {
+    return (
+      <TableContext options={{ columns, data }} plugins={[useColumnOrder]}>
+        <ColumnControl open={true} toggle={() => null} />
+        <Table />
+      </TableContext>
+    )
+  }
+
+  const { getAllByTestId, getByTestId } = render(<Component />)
+
+  // Drag first name
+  const firstNameControl = getAllByTestId('column-control-item')[0]
+  fireEvent.keyDown(firstNameControl, { keyCode: 32 });
+  fireEvent.keyDown(firstNameControl, { keyCode: 40 });
+  fireEvent.keyDown(firstNameControl, { keyCode: 32 });
+  
+  // Reset Columns
+  fireEvent.click(getByTestId('reset-columns'))
+
+  await waitFor(() => {
+    // Verify order after sort
+    const ths_post_reset = getAllByTestId('table-thead-tr-th')
+    expect(ths_post_reset[0].textContent).toBe('First Name')
+    expect(ths_post_reset[1].textContent).toBe('Last Name')
+  })
+});
+
+test('Reset after rearrange columns with initialState', async () => {
+  const Component = () => {
+    return (
+      <TableContext options={{ columns, data, initialState: { columnOrder: ['lastname', 'firstname']}}} plugins={[useColumnOrder]}>
+        <ColumnControl open={true} toggle={() => null} />
+        <Table />
+      </TableContext>
+    )
+  }
+
+  const { getAllByTestId, getByTestId } = render(<Component />)
+
+  // Drag first name
+  const lastNameControl = getAllByTestId('column-control-item')[0]
+  fireEvent.keyDown(lastNameControl, { keyCode: 32 });
+  fireEvent.keyDown(lastNameControl, { keyCode: 40 });
+  fireEvent.keyDown(lastNameControl, { keyCode: 32 });
+  
+  // Reset Columns
+  fireEvent.click(getByTestId('reset-columns'))
+
+  await waitFor(() => {
+    // Verify order after sort
+    const ths_post_reset = getAllByTestId('table-thead-tr-th')
+    expect(ths_post_reset[0].textContent).toBe('Last Name')
+    expect(ths_post_reset[1].textContent).toBe('First Name')
   })
 });
