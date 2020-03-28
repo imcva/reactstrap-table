@@ -28,7 +28,8 @@ export default {
     commonjs({
       extensions: ['.js', '.ts'],
       namedExports: {
-        'react-table': Object.keys(reactTable)
+        'react-table': Object.keys(reactTable),
+        'node_modules/react-redux/node_modules/react-is/index.js': ['isValidElementType', 'isContextConsumer']
       }
     }),
     postcss({
