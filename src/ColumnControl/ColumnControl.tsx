@@ -28,6 +28,12 @@ const ColumnControl: React.FC<ColumnControlProps> = (props) => {
 
   const canOrderColumns = !!state.columnOrder
 
+  const columnOrder = state.columnOrder || []
+
+  const columns = allColumns.sort((a, b) => {
+    return columnOrder.indexOf(a.id) - columnOrder.indexOf(b.id)
+  })
+
   const reset = () => {
     setHiddenColumns(initialState.hiddenColumns || [])
     if (canOrderColumns) {
@@ -61,10 +67,10 @@ const ColumnControl: React.FC<ColumnControlProps> = (props) => {
         {canOrderColumns
           ? (
             <DragDropContext onDragEnd={dnd.onDragEnd}>
-              <ColumnList columns={allColumns} draggable={true} />
+              <ColumnList columns={columns} draggable={true} />
             </DragDropContext>
           ) : (
-              <ColumnList columns={allColumns} />
+              <ColumnList columns={columns} />
           )
         }
       </ModalBody>

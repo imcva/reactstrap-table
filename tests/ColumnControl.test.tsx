@@ -135,7 +135,38 @@ test('Reset Column Visiblity with initialState', async () => {
   })
 });
 
-test('Rearrange Columns without initialState', async () => {
+test('Dragging column control item changes its order', async () => {
+  const Component = () => {
+    return (
+      <TableContext options={{ columns, data }} plugins={[useColumnOrder]}>
+        <ColumnControl open={true} toggle={() => null} />
+        <Table />
+      </TableContext>
+    )
+  }
+
+  const { getAllByTestId } = render(<Component />)
+
+  // Verify starting order
+  const controlItems = getAllByTestId('column-control-item')
+  expect(controlItems[0].textContent).toBe('First Name')
+  expect(controlItems[1].textContent).toBe('Last Name')
+
+  // Drag first name
+  const firstNameControl = controlItems[0]
+  fireEvent.keyDown(firstNameControl, { keyCode: 32 });
+  fireEvent.keyDown(firstNameControl, { keyCode: 40 });
+  fireEvent.keyDown(firstNameControl, { keyCode: 32 });
+
+  await waitFor(() => {
+    // Verify order after sort
+    const controlItems = getAllByTestId('column-control-item')
+    expect(controlItems[0].textContent).toBe('Last Name')
+    expect(controlItems[1].textContent).toBe('First Name')
+  })
+});
+
+test('Rearrange column list will reorder table columns', async () => {
   const Component = () => {
     return (
       <TableContext options={{ columns, data }} plugins={[useColumnOrder]}>
