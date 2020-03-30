@@ -82,3 +82,22 @@ test('Use context without provider should throw', () => {
 
   expect(() => render(<Component />)).toThrow()
 });
+
+test('Load table state from localStorage', () => {
+  const key = 'test-table'
+  localStorage.setItem(key, '{ "hiddenColumns": [ "lastname" ] }')
+
+  const Component = () => {
+    return (
+      <>
+        <TableContext options={{ columns, data }} storageKey={key}>
+          <Table />
+        </TableContext>
+      </>
+    ) 
+  }
+
+  const { getAllByTestId } = render(<Component />)
+  const ths = getAllByTestId('table-thead-tr-th')
+  expect(ths.length).toBe(1)
+});
