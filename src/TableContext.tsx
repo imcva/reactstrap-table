@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTable, TableInstance, TableOptions, PluginHook } from 'react-table'
 
 interface TableProps {
   options: TableOptions<{}>,
-  plugins?: PluginHook<{}>[]
+  plugins?: PluginHook<{}>[],
+  storageKey?: string,
   "data-testid"?: string
 }
 
@@ -20,10 +21,28 @@ const Context = React.createContext<TableState | null>(null)
 const TableContext: React.FC<TableProps> = (props) => {
   const plugins = props.plugins || []
 
+  const options = React.useMemo(() => {
+    const opts = {
+      ...props.options
+    }
+    if(props.storageKey) {
+      const cacheString = localStorage.getItem(props.storageKey)
+      const cache = cacheString ? JSON.parse(cacheString) : undefined
+      opts.initialState = cache || props.options.initialState
+    }
+    return opts
+  }, [props.storageKey, props.options])
+
   const state = useTable(
-    props.options,
+    options,
     ...plugins
   )
+
+  useEffect(() => {
+    if (props.storageKey) {
+      localStorage.setItem(props.storageKey, JSON.stringify(state.state))
+    }
+  }, [props.storageKey, state.state])
 
   return (
     <Context.Provider value={{ ...state }}>

@@ -56,6 +56,7 @@
     "babel-loader": "^8.0.6",
     "bootstrap": "^4.4.1",
     "jest": "^25.1.0",
+    "jest-localstorage-mock": "^2.4.0",
     "reactstrap": "^8.4.1",
     "regenerator-runtime": "^0.13.5",
     "rollup": "^2.0.5",
