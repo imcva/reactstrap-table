@@ -40,7 +40,7 @@ const Sort: React.FC<SortProps> = (props) => {
  */
 const ThSort: React.FC<ThProps> = (props) => {
   return (
-    <th data-testid={props['data-testid'] || 'table-thead-tr-th'} {...props.column.getHeaderProps(props.column.getSortByToggleProps())}>
+    <th data-testid={props['data-testid'] || 'table-thead-tr-th'} {...props.column.getHeaderProps(props.column.getSortByToggleProps())} className='text-nowrap'>
       {props.column.render('Header')}
       <span data-testid='sort-control' className='pl-2'>
         <Sort sorted={props.column.isSorted} desc={props.column.isSortedDesc} />
@@ -51,7 +51,7 @@ const ThSort: React.FC<ThProps> = (props) => {
 
 const Th: React.FC<ThProps> = (props) => {
   return (
-    <th data-testid={props['data-testid'] || 'table-thead-tr-th'} {...props.column.getHeaderProps()}>
+    <th data-testid={props['data-testid'] || 'table-thead-tr-th'} {...props.column.getHeaderProps()} className='text-nowrap'>
       {props.column.render('Header')}
     </th>
   )
