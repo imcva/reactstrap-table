@@ -21,6 +21,9 @@ export default {
   ],
   plugins: [
     // pass custom options to the resolve plugin
+    postcss({
+      extensions: [ '.css' ],
+    }),
     nodeResolve({
       extensions: ['.js', '.jsx', '.ts', '.tsx']
     }),
@@ -32,9 +35,6 @@ export default {
         'node_modules/react-redux/node_modules/react-is/index.js': ['isValidElementType', 'isContextConsumer']
       }
     }),
-    postcss({
-      extract: `dist/${pkg.name}.css`
-    })
   ],
   // indicate which modules should be treated as external
   external: ['react', 'react-dom', 'formik', 'reactstrap', 'bootstrap']
