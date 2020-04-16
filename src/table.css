@@ -1,0 +1,24 @@
+thead.sticky-header th {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  border: none !important;
+}
+
+thead.sticky-header th:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  border-bottom: 1px solid #dee2e6;
+}
+
+thead.sticky-header th:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-bottom: 2px solid #dee2e6;
+}

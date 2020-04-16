@@ -33,8 +33,6 @@
   },
   "include": [
     "src/**/*",
-    "tests/**/*",
-    "stories/**/*"
   ],
   "exclude": [
     "node_modules",

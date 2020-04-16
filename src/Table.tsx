@@ -5,11 +5,16 @@ import Body from './Body'
 import useTableContext from './useTableContext'
 import TableContext, { Context, TableProps } from './TableContext'
 
-type OptionalTableProps = Partial<TableProps>
+import './table.css'
 
 interface BaseTableProps {
+  responsive?: boolean
+  responsiveHeight?: string
+  stickyHeader?: boolean
   "data-testid"?: string
 }
+
+type OptionalTableProps = Partial<TableProps> & BaseTableProps
 
 /**
  * Base Table component with no context injection.
@@ -20,10 +25,12 @@ const BaseTable: React.FC<BaseTableProps> = (props) => {
   const { getTableProps } = useTableContext() 
 
   return (
-    <StrapTable data-testid={ props['data-testid'] || 'table' } {...getTableProps()}>
-      <Header />
-      <Body />
-    </StrapTable>
+    <div className={props.responsive ? 'table-responsive' : ''} style={{maxHeight: props.responsiveHeight}}>
+      <StrapTable data-testid={ props['data-testid'] || 'table' } {...getTableProps()}>
+        <Header stickyHeader={props.stickyHeader} /> 
+        <Body />
+      </StrapTable>
+    </div>
   )
 }
 
@@ -45,11 +52,21 @@ const Table: React.FC<OptionalTableProps> = (props) => {
   if (tableState === null && props.options) {
     return (
       <TableContext options={props.options} plugins={props.plugins}>
-        <BaseTable />  
+        <BaseTable
+          responsive={props.responsive}
+          responsiveHeight={props.responsiveHeight}
+          stickyHeader={props.stickyHeader}
+        />
       </TableContext>
     )
   } else if (tableState !== null ) {
-    return <BaseTable />
+    return (
+      <BaseTable
+        responsive={props.responsive}
+        responsiveHeight={props.responsiveHeight}
+        stickyHeader={props.stickyHeader}
+      />
+    )
   }
   return null
  }

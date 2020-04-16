@@ -18,6 +18,10 @@ interface SortProps {
   desc?: boolean
 }
 
+interface HeaderProps {
+  stickyHeader?: boolean
+}
+
 const Sort: React.FC<SortProps> = (props) => {
   if (props.sorted) {
     return props.desc
@@ -67,11 +71,12 @@ const Tr: React.FC<TrProps> = (props) => {
   )
 }
 
-const Header: React.FC = (props) => {
+
+const Header: React.FC<HeaderProps> = (props) => {
   const { headerGroups } = useTableContext()
 
   return (
-    <thead data-testid={'table-thead'}>
+    <thead className={props.stickyHeader ? 'sticky-header' : ''} data-testid={'table-thead'}>
       {headerGroups.map((headerGroup, index) => (
         <Tr headerGroup={headerGroup} key={index} />
       ))}
