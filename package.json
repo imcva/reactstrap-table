@@ -1,6 +1,6 @@
 {
   "name": "@imcva/reactstrap-table",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "React table used for sorting, searching, and filtering",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
