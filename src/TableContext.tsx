@@ -45,7 +45,7 @@ const TableContext: React.FC<TableProps> = (props) => {
   }, [props.storageKey, state.state])
 
   return (
-    <Context.Provider value={{ ...state }}>
+    <Context.Provider value={{ ...state, originalOptions: props.options }}>
       {props.children}
     </Context.Provider>
   )

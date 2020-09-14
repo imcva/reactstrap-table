@@ -24,7 +24,7 @@ interface ColumnControlProps {
  * @param props 
  */
 const ColumnControl: React.FC<ColumnControlProps> = (props) => {
-  const { allColumns, setHiddenColumns, setColumnOrder, initialState, state } = useTableContext()
+  const { allColumns, setHiddenColumns, setColumnOrder, originalOptions, state } = useTableContext()
 
   const canOrderColumns = !!state.columnOrder
 
@@ -35,9 +35,10 @@ const ColumnControl: React.FC<ColumnControlProps> = (props) => {
   })
 
   const reset = () => {
-    setHiddenColumns(initialState.hiddenColumns || [])
+    const baseState = originalOptions.initialState
+    setHiddenColumns(baseState.hiddenColumns || [])
     if (canOrderColumns) {
-      setColumnOrder(initialState.columnOrder || [])
+      setColumnOrder(baseState.columnOrder || [])
     }
   }
 

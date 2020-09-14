@@ -35,7 +35,7 @@ export const ColumnControlStorageExample = () => {
     <Container fluid>
       <Row>
         <Col>
-          <TableContext options={{ columns, data }} storageKey='my-table' plugins={[useColumnOrder]}>
+          <TableContext options={{ columns, data, initialState: { hiddenColumns: [ 'lastname' ] }}} storageKey='my-table' plugins={[useColumnOrder]}>
             <Button onClick={() => setOpen(s => !s)}>Open Settings</Button>
             <ColumnControl open={open} toggle={() => setOpen(o => !o)}/>
             <Table />
