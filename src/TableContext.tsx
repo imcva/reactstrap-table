@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useTable, TableInstance, TableOptions, PluginHook } from 'react-table'
 
-interface TableProps {
-  options: TableOptions<{}>,
-  plugins?: PluginHook<{}>[],
+interface TableProps<D extends object = any> {
+  options: TableOptions<D>,
+  plugins?: PluginHook<D>[],
   storageKey?: string,
   "data-testid"?: string
 }
