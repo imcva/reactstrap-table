@@ -12,7 +12,7 @@ interface TdProps {
 
 const Td: React.FC<TdProps> = (props) => {
   return (
-    <td data-testid={props['data-testid'] || 'table-tbody-tr-td'} {...props.cell.getCellProps()}>
+    <td className={props.cell.column.className} data-testid={props['data-testid'] || 'table-tbody-tr-td'} {...props.cell.getCellProps()}>
       {props.cell.render('Cell')}
     </td>
   )
@@ -20,7 +20,7 @@ const Td: React.FC<TdProps> = (props) => {
 
 const Tr: React.FC<TrProps> = (props) => {
   return (
-    <tr data-testid={props['data-testid'] || 'table-tbody-tr'} {...props.row.getRowProps()}>
+    <tr className='h-100' data-testid={props['data-testid'] || 'table-tbody-tr'} {...props.row.getRowProps()}>
       {props.row.cells.map((cell, index) => ( 
         <Td cell={cell} key={index} />
       ))}
