@@ -94,14 +94,6 @@ declare module 'react-table' {
       UseRowStateState<D>,
       UseSortByState<D> {}
 
-  export interface Column<D extends object = {}>
-    extends UseFiltersColumnOptions<D>,
-      UseGroupByColumnOptions<D>,
-      UseResizeColumnsColumnOptions<D>,
-      UseSortByColumnOptions<D> {
-        search?: (row: object) => string
-      }
-
   export interface ColumnInstance<D extends object = {}>
     extends UseFiltersColumnProps<D>,
       UseGroupByColumnProps<D>,
@@ -117,4 +109,8 @@ declare module 'react-table' {
       UseGroupByRowProps<D>,
       UseRowSelectRowProps<D>,
       UseRowStateRowProps<D> {}
+
+  export interface UseTableColumnProps<D extends object> {
+    className: string
+  }
 }
