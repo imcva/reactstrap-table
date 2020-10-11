@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, PropsWithChildren, ReactElement } from 'react'
 import { useTable, TableInstance, TableOptions, PluginHook } from 'react-table'
 
-interface TableProps<D extends object = any> {
+interface TableProps<D extends object = {}> {
   options: TableOptions<D>,
   plugins?: PluginHook<D>[],
   storageKey?: string,
   "data-testid"?: string
 }
 
-type TableState = TableInstance
+type TableState = TableInstance<any>
 
 const Context = React.createContext<TableState | null>(null)
 
@@ -18,7 +18,7 @@ const Context = React.createContext<TableState | null>(null)
  *
  * @example [Table Context Example](../storybook/index.html?path=/story/reactstrap-table--with-context)
  */
-const TableContext: React.FC<TableProps> = (props) => {
+const TableContext = <D extends object = {}>(props: PropsWithChildren<TableProps<D>>): ReactElement<any, any> | null => {
   const plugins = props.plugins || []
 
   const options = React.useMemo(() => {
